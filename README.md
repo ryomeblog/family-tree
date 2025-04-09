@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+# 家系図アプリケーション
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React製の家系図作成・管理アプリケーション。家族の関係を視覚的に表示し、人物情報や関係を簡単に管理できます。
 
-## Available Scripts
+## 機能
 
-In the project directory, you can run:
+- 人物情報の登録・編集・削除
+- 関係（夫婦関係）の追加・削除
+- 子供の追加
+- 家系図の視覚的な表示
+- ズーム＆パン操作
+- 人物検索機能
 
-### `npm start`
+### 人物情報
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+以下の情報を管理できます：
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 名前（必須）
+- 生年月日
+- 性別
+- 職業（最大10個）
+- 趣味（最大10個）
+- アレルギー（predefined options）
+- 備考
 
-### `npm test`
+## 技術スタック
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React
+- ReactFlow（家系図の視覚化）
+- TailwindCSS（スタイリング）
+- Storybook（UIコンポーネント管理）
+- ESLint（コード品質管理）
+- Prettier（コードフォーマット）
 
-### `npm run build`
+## セットアップ
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. リポジトリのクローン:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/ryomeblog/family-tree.git
+cd family-tree
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. 依存関係のインストール:
 
-### `npm run eject`
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. 開発サーバーの起動:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. Storybookの起動（オプション）:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm run storybook
+```
 
-## Learn More
+## 使用方法
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. 人物の追加
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   - 「人物登録」ボタンをクリック
+   - 必要な情報を入力
+   - 「追加」をクリック
 
-### Code Splitting
+2. 関係の追加
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   - 人物をクリックして詳細を表示
+   - 「関係を追加」をクリック
+   - 関係を結ぶ相手を選択
+   - 関係名を入力
+   - 「追加」をクリック
 
-### Analyzing the Bundle Size
+3. 子供の追加
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   - 関係ノードをクリック
+   - 「子供を追加」をクリック
+   - 子供の情報を入力
+   - 「追加」をクリック
 
-### Making a Progressive Web App
+4. 人物の編集・削除
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+   - 人物をクリックして詳細を表示
+   - 「編集」または「削除」をクリック
 
-### Advanced Configuration
+5. 関係の削除
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+   - 関係ノードをクリック
+   - 「関係を削除」をクリック
 
-### Deployment
+6. 検索
+   - ヘッダーの検索ボックスに検索語を入力
+   - 名前または職業で検索可能
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## ディレクトリ構造
 
-### `npm run build` fails to minify
+```
+src/
+├── components/           # UIコンポーネント
+│   ├── common/          # 共通コンポーネント
+│   ├── layout/          # レイアウト関連
+│   ├── familyTree/      # 家系図関連
+│   └── forms/           # フォーム関連
+├── hooks/               # カスタムフック
+├── utils/              # ユーティリティ関数
+├── constants/          # 定数
+└── styles/            # スタイル
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 開発ガイドライン
+
+### コンポーネント開発
+
+1. 新しいコンポーネントの作成:
+
+   - components/適切なディレクトリに配置
+   - .jsx ファイルと .stories.jsx ファイルを作成
+   - PropTypesで型を定義
+
+2. Storybook活用:
+   - コンポーネントの様々なバリエーションを作成
+   - インタラクションのテスト
+   - アクセシビリティの確認
+
+### コーディング規約
+
+- ESLintとPrettierの設定に従う
+- コンポーネントはReact Hooksを使用
+- パフォーマンスを考慮したメモ化の活用
+- 適切なエラーハンドリング
+
+## バリデーションルール
+
+### 人物情報
+
+- 名前: 必須項目
+- 職業: 最大10個まで
+- 趣味: 最大10個まで
+- アレルギー: 定義済みの選択肢から選択
+
+### 関係
+
+- 同一人物との関係は作成不可
+- 既に配偶者がいる場合は新規関係を作成不可
+
+## パフォーマンス最適化
+
+- メモ化によるレンダリング最適化
+- 大規模データの効率的な処理
+- レイアウト計算の最適化
+
+## ブラウザサポート
+
+- Google Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## ライセンス
+
+MIT License
