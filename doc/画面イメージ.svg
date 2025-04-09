@@ -1,0 +1,114 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- アプリのヘッダー部分 -->
+  <rect x="0" y="0" width="800" height="50" fill="#0052cc" />
+  <text x="20" y="32" font-family="Arial, sans-serif" font-size="20" fill="white">家系図アプリ</text>
+  
+  <!-- 検索ボックス -->
+  <rect x="600" y="10" width="180" height="30" rx="5" fill="white" />
+  <text x="610" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">人物の検索...</text>
+  <rect x="770" y="10" width="30" height="30" rx="5" fill="white" />
+  <text x="780" y="30" font-family="Arial, sans-serif" font-size="16" fill="#888">🔍</text>
+  
+  <!-- 家系図のノードとエッジ -->
+  <!-- 1世代目：両親 -->
+  <!-- 左側の家族 -->
+  <rect x="100" y="100" width="120" height="100" rx="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="160" y="125" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="black">石川 幸助</text>
+  <line x1="100" y1="130" x2="220" y2="130" stroke="#ccc" />
+  <text x="110" y="150" font-family="Arial, sans-serif" font-size="12" fill="#666">• 職業：SE</text>
+  <text x="110" y="170" font-family="Arial, sans-serif" font-size="12" fill="#666">• 年齢：60</text>
+  
+  <rect x="320" y="100" width="120" height="100" rx="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="380" y="125" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="black">北川 加奈子</text>
+  <line x1="320" y1="130" x2="440" y2="130" stroke="#ccc" />
+  <text x="330" y="150" font-family="Arial, sans-serif" font-size="12" fill="#666">• 年齢：55</text>
+  
+  <!-- 右側の家族 -->
+  <rect x="500" y="100" width="120" height="100" rx="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="560" y="125" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="black">佐藤 幸助</text>
+  <line x1="500" y1="130" x2="620" y2="130" stroke="#ccc" />
+  <text x="510" y="150" font-family="Arial, sans-serif" font-size="12" fill="#666">• 職業：SE</text>
+  <text x="510" y="170" font-family="Arial, sans-serif" font-size="12" fill="#666">• 年齢：60</text>
+  
+  <rect x="720" y="100" width="120" height="100" rx="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="780" y="125" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="black">東野 加奈子</text>
+  <line x1="720" y1="130" x2="840" y2="130" stroke="#ccc" />
+  <text x="730" y="150" font-family="Arial, sans-serif" font-size="12" fill="#666">• 年齢：55</text>
+  
+  <!-- 関係線（1世代目から2世代目へ） -->
+  <!-- 左側の家族関係 -->
+  <line x1="220" y1="125" x2="270" y2="125" stroke="#000" />
+  <line x1="270" y1="135" x2="270" y2="200" stroke="#000" />
+  <line x1="270" y1="200" x2="160" y2="200" stroke="#000" />
+  <line x1="160" y1="200" x2="160" y2="260" stroke="#000" />
+  <line x1="270" y1="125" x2="320" y2="125" stroke="#000" />
+  
+  <!-- 右側の家族関係 -->
+  <line x1="620" y1="125" x2="670" y2="125" stroke="#000" />
+  <line x1="670" y1="135" x2="670" y2="200" stroke="#000" />
+  <line x1="670" y1="200" x2="560" y2="200" stroke="#000" />
+  <line x1="560" y1="200" x2="560" y2="260" stroke="#000" />
+  <line x1="670" y1="125" x2="720" y2="125" stroke="#000" />
+  
+  <!-- 2世代目：子供たち -->
+  <rect x="100" y="260" width="120" height="100" rx="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="160" y="285" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="black">石川 大輔</text>
+  <line x1="100" y1="290" x2="220" y2="290" stroke="#ccc" />
+  <text x="110" y="310" font-family="Arial, sans-serif" font-size="12" fill="#666">• 職業：SE</text>
+  <text x="110" y="330" font-family="Arial, sans-serif" font-size="12" fill="#666">• 年齢：30</text>
+  
+  <rect x="500" y="260" width="120" height="100" rx="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="560" y="285" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="black">佐藤 加奈子</text>
+  <line x1="500" y1="290" x2="620" y2="290" stroke="#ccc" />
+  <text x="510" y="310" font-family="Arial, sans-serif" font-size="12" fill="#666">• 年齢：30</text>
+  
+  <!-- 関係線（2世代目の夫婦関係） -->
+  <line x1="220" y1="285" x2="360" y2="285" stroke="#000" />
+  <line x1="360" y1="295" x2="360" y2="380" stroke="#000" />
+  <line x1="360" y1="285" x2="500" y2="285" stroke="#000" />
+  
+  <!-- 3世代目：孫 -->
+  <rect x="200" y="420" width="120" height="100" rx="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="260" y="445" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="black">石川 真治</text>
+  <line x1="200" y1="450" x2="320" y2="450" stroke="#ccc" />
+  <text x="210" y="470" font-family="Arial, sans-serif" font-size="12" fill="#666">• 職業：学生</text>
+  <text x="210" y="490" font-family="Arial, sans-serif" font-size="12" fill="#666">• 年齢：10</text>
+  
+  <rect x="400" y="420" width="120" height="100" rx="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="460" y="445" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="black">石川 誠</text>
+  <line x1="400" y1="450" x2="520" y2="450" stroke="#ccc" />
+  <text x="410" y="470" font-family="Arial, sans-serif" font-size="12" fill="#666">• 職業：学生</text>
+  <text x="410" y="490" font-family="Arial, sans-serif" font-size="12" fill="#666">• 年齢：8</text>
+  
+  <!-- 夫婦関係線（2世代目から3世代目へ） -->
+  <line x1="360" y1="380" x2="260" y2="380" stroke="#000" />
+  <line x1="260" y1="380" x2="260" y2="420" stroke="#000" />
+  <line x1="360" y1="380" x2="460" y2="380" stroke="#000" />
+  <line x1="460" y1="380" x2="460" y2="420" stroke="#000" />
+  
+  <!-- 夫婦ラベル（最前面に配置） -->
+  <!-- 左側の夫婦ラベル -->
+  <rect x="250" y="115" width="40" height="20" rx="5" fill="white" stroke="#000" />
+  <text x="270" y="130" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="black">夫婦</text>
+  
+  <!-- 右側の夫婦ラベル -->
+  <rect x="650" y="115" width="40" height="20" rx="5" fill="white" stroke="#000" />
+  <text x="670" y="130" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="black">夫婦</text>
+  
+  <!-- 中央の夫婦ラベル -->
+  <rect x="340" y="275" width="40" height="20" rx="5" fill="white" stroke="#000" />
+  <text x="360" y="290" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="black">夫婦</text>
+  
+  <!-- ズーム/パンコントロール -->
+  <rect x="750" y="500" width="30" height="60" rx="5" fill="#f0f0f0" stroke="#ccc" />
+  <rect x="750" y="500" width="30" height="30" rx="5" fill="#f0f0f0" stroke="#ccc" />
+  <text x="765" y="522" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#333">+</text>
+  <line x1="750" y1="530" x2="780" y2="530" stroke="#ccc" />
+  <text x="765" y="552" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#333">−</text>
+  
+  <!-- 人物登録ボタン -->
+  <rect x="635" y="500" width="100" height="40" rx="20" fill="#0052cc" stroke="#0046ad" stroke-width="1" />
+  <text x="690" y="525" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white">人物登録</text>
+  <circle cx="650" cy="520" r="10" fill="white" />
+  <text x="650" y="525" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#0052cc">+</text>
+</svg>
