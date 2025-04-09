@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '../../common/Button/Button';
 
-const RelationForm = ({ persons, initialPerson, onSubmit, onCancel }) => {
+const RelationForm = ({ persons, initialPerson, onSubmit, onCancel, relationName: defaultRelationName, singleSelect }) => {
   const [selectedPerson, setSelectedPerson] = useState('');
-  const [relationName, setRelationName] = useState('');
+  const [relationName, setRelationName] = useState(defaultRelationName || '');
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (initialPerson && selectedPerson && relationName) {
-      onSubmit(initialPerson.id, selectedPerson, relationName);
+    if (selectedPerson) {
+      if (initialPerson) {
+        onSubmit(initialPerson.id, selectedPerson, relationName);
+      } else if (singleSelect) {
+        onSubmit(null, selectedPerson);
+      }
     }
   };
 
@@ -18,17 +22,19 @@ const RelationForm = ({ persons, initialPerson, onSubmit, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-gray-700">関係名 *</label>
-        <input
-          type="text"
-          value={relationName}
-          onChange={e => setRelationName(e.target.value)}
-          className={inputStyle}
-          placeholder="例：夫婦、親子など"
-          required
-        />
-      </div>
+      {!defaultRelationName && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700">関係名 *</label>
+          <input
+            type="text"
+            value={relationName}
+            onChange={e => setRelationName(e.target.value)}
+            className={inputStyle}
+            placeholder="例：夫婦、親子など"
+            required
+          />
+        </div>
+      )}
 
       <div>
         <label className="block text-sm font-medium text-gray-700">相手を選択 *</label>
@@ -53,7 +59,7 @@ const RelationForm = ({ persons, initialPerson, onSubmit, onCancel }) => {
         <Button type="button" variant="secondary" onClick={onCancel}>
           キャンセル
         </Button>
-        <Button type="submit" disabled={!selectedPerson || !relationName}>
+        <Button type="submit" disabled={!selectedPerson || (!defaultRelationName && !relationName)}>
           追加
         </Button>
       </div>
@@ -74,6 +80,12 @@ RelationForm.propTypes = {
   }),
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  relationName: PropTypes.string,
+  singleSelect: PropTypes.bool,
+};
+
+RelationForm.defaultProps = {
+  singleSelect: false,
 };
 
 export default RelationForm;

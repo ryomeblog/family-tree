@@ -162,9 +162,14 @@ const useFamily = () => {
   // 子供の追加
   const addChild = useCallback(
     (relationNodeId, childData) => {
-      // 子供の人物データを追加
-      const childId = addPerson(childData);
+      // 既存の人物かどうかを確認
+      const childId = childData.id;
       const edgeId = uuidv4();
+
+      // 新規作成の場合のみ人物を追加
+      if (!nodes.find(node => node.id === childId)) {
+        addPerson(childData);
+      }
 
       // 関係ノードを探す
       const relationNode = nodes.find(node => node.id === relationNodeId);

@@ -40,6 +40,7 @@ const FamilyTreeFlow = ({
   const [selectedRelation, setSelectedRelation] = useState(null);
   const [showRelationActions, setShowRelationActions] = useState(false);
   const [showChildForm, setShowChildForm] = useState(false);
+  const [showChildSelectForm, setShowChildSelectForm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // ReactFlowのオプション
@@ -288,7 +289,15 @@ const FamilyTreeFlow = ({
       >
         <RelationForm
           persons={nodes
-            .filter(node => node.type === 'person')
+            .filter(
+              node =>
+                node.type === 'person' &&
+                !edges.some(
+                  edge =>
+                    (edge.source === selectedPerson?.id && edge.target === node.id) ||
+                    (edge.target === selectedPerson?.id && edge.source === node.id),
+                ),
+            )
             .map(node => ({
               id: node.id,
               name: node.data.name,
@@ -311,15 +320,9 @@ const FamilyTreeFlow = ({
         }}
         title="関係の操作"
       >
-        <div className="space-y-4">
-          <Button
-            onClick={() => {
-              setShowRelationActions(false);
-              setShowChildForm(true);
-            }}
-          >
-            子供を追加
-          </Button>
+        <div className="flex flex-col gap-6">
+          <Button onClick={() => setShowChildForm(true)}>子供を追加</Button>
+          <Button onClick={() => setShowChildSelectForm(true)}>子供を選択</Button>
           <Button
             variant="danger"
             onClick={() => {
@@ -348,6 +351,74 @@ const FamilyTreeFlow = ({
             setShowChildForm(false);
             setSelectedRelation(null);
           }}
+        />
+      </Modal>
+
+      {/* 既存の子供選択モーダル */}
+      <Modal
+        isOpen={showChildSelectForm}
+        onClose={() => {
+          setShowChildSelectForm(false);
+          setSelectedRelation(null);
+        }}
+        title="子供を選択"
+      >
+        <RelationForm
+          persons={[
+            ...new Map(
+              nodes
+                .filter(node => {
+                  // 人物ノードのみを対象
+                  if (node.type !== 'person') return false;
+
+                  // selectedRelationがない場合は全ての人物を表示
+                  if (!selectedRelation) return true;
+
+                  // 関係ノードに関連する人物を除外
+                  const isRelatedPerson = edges.some(
+                    edge =>
+                      // 関係ノードに接続されているエッジを確認
+                      edge.target === selectedRelation.id && edge.source === node.id,
+                  );
+
+                  return !isRelatedPerson;
+                })
+                .map(node => [
+                  node.id,
+                  {
+                    id: node.id,
+                    name: node.data.name,
+                  },
+                ]),
+            ).values(),
+          ]}
+          initialPerson={null}
+          onSubmit={(person1Id, person2Id) => {
+            const selectedNode = nodes.find(node => node.id === person2Id);
+
+            if (selectedNode) {
+              // 既存の人物を子供として選択する場合のデータ
+              const childData = {
+                id: person2Id,
+                type: 'person',
+                position: selectedNode.position,
+                width: selectedNode.width,
+                height: selectedNode.height,
+                ...selectedNode.data, // データを直接展開
+              };
+
+              // 子供の追加（エッジの作成は useFamily 内で行われる）
+              onChildAdd?.(selectedRelation.id, childData);
+            }
+            setShowChildSelectForm(false);
+            setSelectedRelation(null);
+          }}
+          onCancel={() => {
+            setShowChildSelectForm(false);
+            setSelectedRelation(null);
+          }}
+          relationName="子供"
+          singleSelect={true}
         />
       </Modal>
     </div>
