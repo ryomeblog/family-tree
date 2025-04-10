@@ -39,7 +39,6 @@ const FamilyTreeFlow = ({
   const [showRelationForm, setShowRelationForm] = useState(false);
   const [selectedRelation, setSelectedRelation] = useState(null);
   const [showRelationActions, setShowRelationActions] = useState(false);
-  const [showChildForm, setShowChildForm] = useState(false);
   const [showChildSelectForm, setShowChildSelectForm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
@@ -92,14 +91,6 @@ const FamilyTreeFlow = ({
     setShowDeleteConfirm(false);
     setShowPersonDetails(false);
     setSelectedPerson(null);
-  };
-
-  const handleAddChild = data => {
-    if (selectedRelation) {
-      onChildAdd?.(selectedRelation.id, data);
-      setShowChildForm(false);
-      setSelectedRelation(null);
-    }
   };
 
   const handleAddRelation = (person1Id, person2Id, relationName) => {
@@ -171,7 +162,7 @@ const FamilyTreeFlow = ({
             {selectedPerson.birthDate && (
               <div>
                 <label className="font-semibold">生年月日：</label>
-                <span className="text-[9px]">
+                <span>
                   {new Date(selectedPerson.birthDate).toLocaleDateString('ja-JP')} (
                   {calculateAge(selectedPerson.birthDate)}歳)
                 </span>
@@ -321,7 +312,6 @@ const FamilyTreeFlow = ({
         title="関係の操作"
       >
         <div className="flex flex-col gap-6">
-          <Button onClick={() => setShowChildForm(true)}>子供を追加</Button>
           <Button onClick={() => setShowChildSelectForm(true)}>子供を選択</Button>
           <Button
             variant="danger"
@@ -334,24 +324,6 @@ const FamilyTreeFlow = ({
             関係を削除
           </Button>
         </div>
-      </Modal>
-
-      {/* 子供追加モーダル */}
-      <Modal
-        isOpen={showChildForm}
-        onClose={() => {
-          setShowChildForm(false);
-          setSelectedRelation(null);
-        }}
-        title="子供追加"
-      >
-        <PersonForm
-          onSubmit={handleAddChild}
-          onCancel={() => {
-            setShowChildForm(false);
-            setSelectedRelation(null);
-          }}
-        />
       </Modal>
 
       {/* 既存の子供選択モーダル */}

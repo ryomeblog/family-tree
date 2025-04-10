@@ -176,11 +176,6 @@ const useFamily = () => {
       const childId = childData.id;
       const edgeId = uuidv4();
 
-      // 新規作成の場合のみ人物を追加
-      if (!nodes.find(node => node.id === childId)) {
-        addPerson(childData);
-      }
-
       // 関係ノードを探す
       const relationNode = nodes.find(node => node.id === relationNodeId);
       if (!relationNode) return childId;

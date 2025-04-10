@@ -9,7 +9,7 @@ const PersonNode = ({ data, selected }) => {
         selected ? 'border-blue-500' : 'border-gray-200'
       }`}
     >
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Top} id="top" />
       <div className="flex flex-col items-center gap-2">
         <div className="text-lg font-bold">{data.name}</div>
         {data.birthDate && (
@@ -18,7 +18,7 @@ const PersonNode = ({ data, selected }) => {
           </div>
         )}
       </div>
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Bottom} id="bottom" />
     </div>
   );
 };
