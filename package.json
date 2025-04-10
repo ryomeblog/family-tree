@@ -2,6 +2,7 @@
   "name": "family-tree",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ryomeblog.github.io/family-tree/",
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@reactflow/background": "^11.3.14",
@@ -27,7 +28,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +69,7 @@
     "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-storybook": "^0.12.0",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prop-types": "^15.8.1",
