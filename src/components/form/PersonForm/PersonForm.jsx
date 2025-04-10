@@ -135,7 +135,9 @@ const PersonForm = ({ initialData, onSubmit, onCancel }) => {
             onChange={e => setFormData({ ...formData, birthDate: e.target.value })}
             className={inputStyle}
           />
-          {age !== null && <span className="text-gray-600">{age}歳</span>}
+          {age !== null && (
+            <span className="text-gray-600 flex-shrink-0 whitespace-nowrap">{age}歳</span>
+          )}
         </div>
       </div>
 

@@ -171,7 +171,7 @@ const FamilyTreeFlow = ({
             {selectedPerson.birthDate && (
               <div>
                 <label className="font-semibold">生年月日：</label>
-                <span>
+                <span className="text-[9px]">
                   {new Date(selectedPerson.birthDate).toLocaleDateString('ja-JP')} (
                   {calculateAge(selectedPerson.birthDate)}歳)
                 </span>
