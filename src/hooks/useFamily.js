@@ -6,6 +6,7 @@ import useLocalStorage from './useLocalStorage';
 const useFamily = () => {
   const [persons, setPersons] = useLocalStorage('family-persons', []);
   const [relations, setRelations] = useLocalStorage('family-relations', []);
+  const [nodePositions, setNodePositions] = useLocalStorage('family-node-positions', {});
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
@@ -62,14 +63,19 @@ const useFamily = () => {
     data => {
       const id = uuidv4();
       const newPerson = { id, ...data };
+      const position = calculateNodePosition(nodes.length);
 
       setPersons(prev => [...prev, newPerson]);
+      setNodePositions(prev => ({
+        ...prev,
+        [id]: position,
+      }));
       setNodes(prev => [
         ...prev,
         {
           id,
           type: 'person',
-          position: calculateNodePosition(prev.length),
+          position,
           data: newPerson,
         },
       ]);
@@ -120,6 +126,10 @@ const useFamily = () => {
       setRelations(prev => [...prev, newRelation]);
 
       // 関係ノードを追加
+      setNodePositions(prev => ({
+        ...prev,
+        [relationNodeId]: relationNodePosition,
+      }));
       setNodes(prev => [
         ...prev,
         {
@@ -182,6 +192,10 @@ const useFamily = () => {
       };
 
       // 子供の位置を更新
+      setNodePositions(prev => ({
+        ...prev,
+        [childId]: childPosition,
+      }));
       setNodes(prev =>
         prev.map(node => {
           if (node.id === childId) {
@@ -273,12 +287,36 @@ const useFamily = () => {
   );
 
   // 初期状態の設定
+  // ノードの位置を更新
+  const updateNodePosition = useCallback(
+    (nodeId, position) => {
+      setNodePositions(prev => ({
+        ...prev,
+        [nodeId]: position,
+      }));
+    },
+    [setNodePositions],
+  );
+
+  // ノード変更時のハンドラーをカスタマイズ
+  const handleNodesChange = useCallback(
+    changes => {
+      onNodesChange(changes);
+      changes.forEach(change => {
+        if (change.type === 'position' && change.position) {
+          updateNodePosition(change.id, change.position);
+        }
+      });
+    },
+    [onNodesChange, updateNodePosition],
+  );
+
   useEffect(() => {
     // 保存された人物データからノードを生成
-    const initialNodes = persons.map((person, index) => ({
+    const initialNodes = persons.map(person => ({
       id: person.id,
       type: 'person',
-      position: calculateNodePosition(index),
+      position: nodePositions[person.id] || calculateNodePosition(persons.indexOf(person)),
       data: person,
     }));
 
@@ -295,6 +333,12 @@ const useFamily = () => {
         const relationNodePosition = calculateRelationNodePosition(person1Node, person2Node);
 
         // 関係ノードを追加
+        // 関係ノードの位置を保存
+        setNodePositions(prev => ({
+          ...prev,
+          [relation.id]: relationNodePosition,
+        }));
+
         relationNodes.push({
           id: relation.id,
           type: 'relation',
@@ -354,7 +398,7 @@ const useFamily = () => {
     persons,
     nodes,
     edges,
-    onNodesChange,
+    onNodesChange: handleNodesChange,
     onEdgesChange,
     addPerson,
     addRelation,
